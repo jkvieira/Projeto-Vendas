@@ -1,0 +1,22 @@
+.pagination {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+.pagination button { 
+    background-color: white;
+    color: black;
+    float: left;
+    padding: 0px 8px;
+    text-decoration: solid;
+    font-weight: bold;
+    size: 20px;
+  }
+  
+  .pagination button.active {
+    background-color: #52d3ac;
+    color: rgb(8, 8, 8);
+  }
+  
+  .pagination button:hover:not(.active) {background-color: #ddd;}

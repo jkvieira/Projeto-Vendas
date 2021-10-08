@@ -1,0 +1,22 @@
+.main-footer {
+    padding: 0;
+    background-color: #030000;
+    font-weight: normal;
+    font-size: 12px;
+    text-align: center;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width:100%;
+  }
+  
+  .footer-icons {
+    margin-top: 35px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .footer-icons > * {
+    margin-right: 25px;
+
+  }
