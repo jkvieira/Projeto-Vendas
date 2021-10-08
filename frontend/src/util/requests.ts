@@ -1,1 +1,1 @@
-export const BASE_URL = process.env.React_BackEnd_URL ?? "http://localhost:8080";
+export const BASE_URL = process.env.REACT_BACKEND_URL ?? 'http://localhost:8080';
