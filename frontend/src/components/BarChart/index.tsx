@@ -66,6 +66,8 @@ const BarChart = () => {
       const Xaxis = createXaxis(yearMinFucntion(data), yearMaxFucntion(data));
       const mySeries = createSeries(Xaxis, data);
       setChartData({ xaxis: { categories: Xaxis }, series: mySeries });
+      console.log(Xaxis);
+      console.log(mySeries);
     });
        
       }, []);
