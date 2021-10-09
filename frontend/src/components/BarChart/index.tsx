@@ -9,8 +9,8 @@ import { getSalesByStoreYear } from 'requestsApi';
 const BarChart = () => {
   const [responseData, setResponseData] = useState<SaleByStoreYear[][]>([]);
   const [Xaxis, setXaxis] = useState<number[]>([]);
-  //const [yearMinSubPlot, setYearMinSubPlot] = useState<number>(0);
-  //const [yearMaxSubPlot, setYearMaxSubPlot] = useState<number>(0);
+  const [yearMinSubPlot, setYearMinSubPlot] = useState<number>(0);
+  const [yearMaxSubPlot, setYearMaxSubPlot] = useState<number>(0);
   const [chartData, setChartData] = useState<BarChartData>({
     xaxis: {
       categories: []
@@ -49,10 +49,10 @@ const BarChart = () => {
   const createSeries = (xaxis: Number[], list: SaleByStoreYear[][]) => {
     let series = [];
     for (let i = 0; i < list.length; i++){
-      let obj = list[i];
+      //let obj = list[i];
       let data = xaxis.map(x => 0);
-      let name = obj ? obj[0].storeName : "error";
-      obj?.map(item =>
+      let name =  list[i][0].storeName;
+      list[i].map(item =>
         data[xaxis.indexOf(item.year)] = item.sum
       );
 
@@ -66,24 +66,22 @@ const BarChart = () => {
   const initXaxis = (data: SaleByStoreYear[][] ) =>{
     const yearMin = yearMinFucntion(data);
     const yearMax = yearMaxFucntion(data);
-    //setYearMinSubPlot(yearMin);
-    //setYearMaxSubPlot(yearMax);
+    setYearMinSubPlot(yearMin);
+    setYearMaxSubPlot(yearMax);
     setXaxis(createXaxis(yearMin, yearMax));
   }
 
   useEffect(() => {
     getSalesByStoreYear( setResponseData, initXaxis);
-    const mySeries = createSeries(Xaxis, responseData);
-    setChartData({ xaxis: { categories: Xaxis }, series: mySeries });
   }, []);
 
   /*permite alterar o estado da exibição do gráfico quando faixa de
-   anos é modificada pelo usuário 
+   anos é modificada pelo usuário */
   useEffect(() => {
     const subXaxis = createXaxis(yearMinSubPlot, yearMaxSubPlot);
     const mySeries = createSeries(subXaxis, responseData);
     setChartData({ xaxis: { categories: subXaxis }, series: mySeries });
-  }, [yearMinSubPlot, yearMaxSubPlot]);*/
+  }, [yearMinSubPlot, yearMaxSubPlot]);
 
   const options = {
     plotOptions: {
@@ -125,17 +123,17 @@ const BarChart = () => {
         }
       }
     },
-  /*  dataLabels: {
+    dataLabels: {
       enabled: false
-    }*/
+    }
   }
 
   const myChangeHandler = (e: { target: { value: any; name: any }; }) => {
     if (e.target.name === "selectYearMin") {
-      //setYearMinSubPlot(Number(e.target.value));
+      setYearMinSubPlot(Number(e.target.value));
     }
     if (e.target.name === "selectYearMax") {
-      //setYearMaxSubPlot(Number(e.target.value));
+      setYearMaxSubPlot(Number(e.target.value));
     }
   }
 
