@@ -91,6 +91,9 @@ const BarChart = () => {
         endingShape: 'rounded'
       }
     },
+    legend: {
+      show: true
+    },
     title: {
       text: 'Total de vendas por ano',
       floating: false,
@@ -120,9 +123,9 @@ const BarChart = () => {
         }
       }
     },
-    dataLabels: {
+  /*  dataLabels: {
       enabled: false
-    }
+    }*/
   }
 
   const myChangeHandler = (e: { target: { value: any; name: any }; }) => {
