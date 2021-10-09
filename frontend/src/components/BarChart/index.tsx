@@ -9,8 +9,8 @@ import { getSalesByStoreYear } from 'requestsApi';
 const BarChart = () => {
   const [responseData, setResponseData] = useState<SaleByStoreYear[][]>([]);
   const [Xaxis, setXaxis] = useState<number[]>([]);
-  const [yearMinSubPlot, setYearMinSubPlot] = useState<number>(0);
-  const [yearMaxSubPlot, setYearMaxSubPlot] = useState<number>(0);
+  //const [yearMinSubPlot, setYearMinSubPlot] = useState<number>(0);
+  //const [yearMaxSubPlot, setYearMaxSubPlot] = useState<number>(0);
   const [chartData, setChartData] = useState<BarChartData>({
     xaxis: {
       categories: []
@@ -66,8 +66,8 @@ const BarChart = () => {
   const initXaxis = (data: SaleByStoreYear[][] ) =>{
     const yearMin = yearMinFucntion(data);
     const yearMax = yearMaxFucntion(data);
-    setYearMinSubPlot(yearMin);
-    setYearMaxSubPlot(yearMax);
+    //setYearMinSubPlot(yearMin);
+    //setYearMaxSubPlot(yearMax);
     setXaxis(createXaxis(yearMin, yearMax));
     const mySeries = createSeries(Xaxis, responseData);
     setChartData({ xaxis: { categories: Xaxis }, series: mySeries });
@@ -132,10 +132,10 @@ const BarChart = () => {
 
   const myChangeHandler = (e: { target: { value: any; name: any }; }) => {
     if (e.target.name === "selectYearMin") {
-      setYearMinSubPlot(Number(e.target.value));
+      //setYearMinSubPlot(Number(e.target.value));
     }
     if (e.target.name === "selectYearMax") {
-      setYearMaxSubPlot(Number(e.target.value));
+      //setYearMaxSubPlot(Number(e.target.value));
     }
   }
 
