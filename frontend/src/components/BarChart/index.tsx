@@ -69,6 +69,8 @@ const BarChart = () => {
     setYearMinSubPlot(yearMin);
     setYearMaxSubPlot(yearMax);
     setXaxis(createXaxis(yearMin, yearMax));
+    const mySeries = createSeries(Xaxis, responseData);
+    setChartData({ xaxis: { categories: Xaxis }, series: mySeries });
   }
 
   useEffect(() => {
@@ -76,12 +78,12 @@ const BarChart = () => {
   }, []);
 
   /*permite alterar o estado da exibição do gráfico quando faixa de
-   anos é modificada pelo usuário */ 
+   anos é modificada pelo usuário 
   useEffect(() => {
     const subXaxis = createXaxis(yearMinSubPlot, yearMaxSubPlot);
     const mySeries = createSeries(subXaxis, responseData);
     setChartData({ xaxis: { categories: subXaxis }, series: mySeries });
-  }, [yearMinSubPlot, yearMaxSubPlot]);
+  }, [yearMinSubPlot, yearMaxSubPlot]);*/
 
   const options = {
     plotOptions: {
