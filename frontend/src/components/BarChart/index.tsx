@@ -69,12 +69,12 @@ const BarChart = () => {
     //setYearMinSubPlot(yearMin);
     //setYearMaxSubPlot(yearMax);
     setXaxis(createXaxis(yearMin, yearMax));
-    const mySeries = createSeries(Xaxis, responseData);
-    setChartData({ xaxis: { categories: Xaxis }, series: mySeries });
   }
 
   useEffect(() => {
     getSalesByStoreYear( setResponseData, initXaxis);
+    const mySeries = createSeries(Xaxis, responseData);
+    setChartData({ xaxis: { categories: Xaxis }, series: mySeries });
   }, []);
 
   /*permite alterar o estado da exibição do gráfico quando faixa de
