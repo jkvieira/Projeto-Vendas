@@ -1,16 +1,12 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import { SaleByStoreYear } from 'Types/dataTypes';
 import { BarChartData } from 'Types/componentsTypes';
-import './styles.css';
-import { getSalesByStoreYear } from 'requestsApi';
+import axios from 'axios';
+import { BASE_URL } from 'util/requests';
 
 const BarChart = () => {
-  const [responseData, setResponseData] = useState<SaleByStoreYear[][]>([]);
-  const [Xaxis, setXaxis] = useState<number[]>([]);
-  const [yearMinSubPlot, setYearMinSubPlot] = useState<number>(0);
-  const [yearMaxSubPlot, setYearMaxSubPlot] = useState<number>(0);
+ 
   const [chartData, setChartData] = useState<BarChartData>({
     xaxis: {
       categories: []
@@ -62,103 +58,70 @@ const BarChart = () => {
     return series;
   }
 
-   /* inicializa o eixo x do gráfico*/
-  const initXaxis = (data: SaleByStoreYear[][] ) =>{
-    const yearMin = yearMinFucntion(data);
-    const yearMax = yearMaxFucntion(data);
-    setYearMinSubPlot(yearMin);
-    setYearMaxSubPlot(yearMax);
-    setXaxis(createXaxis(yearMin, yearMax));
-  }
+ 
 
   useEffect(() => {
-    getSalesByStoreYear( setResponseData, initXaxis);
-  }, []);
+    axios.get(`${BASE_URL}/sales/by-store-year`).then((response) => {
+      const data = response.data as SaleByStoreYear[][];
+      const Xaxis = createXaxis(yearMinFucntion(data), yearMaxFucntion(data));
+      const mySeries = createSeries(Xaxis, data);
+      setChartData({ xaxis: { categories: Xaxis }, series: mySeries });
+    });
+       
+      }, []);
 
-  /*permite alterar o estado da exibição do gráfico quando faixa de
-   anos é modificada pelo usuário */
-  useEffect(() => {
-    const subXaxis = createXaxis(yearMinSubPlot, yearMaxSubPlot);
-    const mySeries = createSeries(subXaxis, responseData);
-    setChartData({ xaxis: { categories: subXaxis }, series: mySeries });
-  }, [yearMinSubPlot, yearMaxSubPlot]);
-
-  const options = {
-    plotOptions: {
-      bar: {
-        horizontal: false,
-        columnWidth: '55%',
-        endingShape: 'rounded'
-      }
-    },
-    title: {
-      text: 'Total de vendas por ano',
-      floating: false,
-      style: {
-        fontSize: '15px',
-        fontWeight: 'bold',
-        color: 'red'
-      }
-    },
-    stroke: {
-      show: true,
-      width: 2,
-      colors: ['transparent']
-    },
-    yaxis: {
-      title: {
-        text: '$(Total de vendas em reais)'
-      }
-    },
-    fill: {
-      opacity: 1
-    },
-    tooltip: {
-      y: {
-        formatter: function (val: any) {
-          return "$ " + val + " reais"
+     
+      const options = {
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: '55%',
+            endingShape: 'rounded'
+          }
+        },
+        title: {
+          text: 'Total de vendas por ano',
+          floating: false,
+          style: {
+            fontSize: '15px',
+            fontWeight: 'bold',
+            color: 'red'
+          }
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ['transparent']
+        },
+        yaxis: {
+          title: {
+            text: '$(Total de vendas em reais)'
+          }
+        },
+        fill: {
+          opacity: 1
+        },
+        tooltip: {
+          y: {
+            formatter: function (val: any) {
+              return "$ " + val + " reais";
+            }
+          }
+        },
+        dataLabels: {
+          enabled: false
         }
-      }
-    },
-    dataLabels: {
-      enabled: false
-    }
-  }
+      };
 
-  const myChangeHandler = (e: { target: { value: any; name: any }; }) => {
-    if (e.target.name === "selectYearMin") {
-      setYearMinSubPlot(Number(e.target.value));
+      return (
+        <>
+          <Chart
+            options={{ ...options, xaxis: chartData.xaxis }}
+            series={chartData.series}
+            type='bar'
+            height='390' />
+        </>
+      );
     }
-    if (e.target.name === "selectYearMax") {
-      setYearMaxSubPlot(Number(e.target.value));
-    }
-  }
-
-  return (
-    <>
-      <div className="contextHeaderChart">
-        <h2>Selecione uma faixa de exibição para o gráfico </h2>
-        <label>Ano mínimo </label>
-        <select  name="selectYearMin" onChange={myChangeHandler}>
-         {Xaxis.map((item)=>
-            <option key={item} value={item}>{item}</option>)}
-        </select>
-        <label>Ano máximo </label>
-        <select name="selectYearMax" onChange={myChangeHandler}>
-          {Xaxis.map(item =>
-            <option key={item} value={item}>{item}</option>
-          )}
-        </select>
-        <br/>
-      </div>
-      <Chart
-        options={{ ...options, xaxis: chartData.xaxis }}
-        series={chartData.series}
-        type='bar'
-        height='390'
-      />
-    </>
-  );
-}
 
 export default BarChart;
