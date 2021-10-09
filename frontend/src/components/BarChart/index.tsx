@@ -52,7 +52,7 @@ const BarChart = () => {
       //let obj = list[i];
       let data = xaxis.map(x => 0);
       let name =  list[i][0].storeName;
-      list[i].map(item =>
+      list[i].forEach(item =>
         data[xaxis.indexOf(item.year)] = item.sum
       );
 
@@ -90,9 +90,6 @@ const BarChart = () => {
         columnWidth: '55%',
         endingShape: 'rounded'
       }
-    },
-    legend: {
-      show: true
     },
     title: {
       text: 'Total de vendas por ano',
