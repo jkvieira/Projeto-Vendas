@@ -22,7 +22,8 @@ public interface SaleRepository extends JpaRepository<Sale,Long> {
 	
 	@Query("SELECT new com.devsuperior.dssales.dto.SalesByStoreAndYearDTO(obj.store, SUM(obj.total),YEAR(obj.date)) "
 			+ " FROM Sale AS obj "
-			+ "GROUP BY obj.store, YEAR(obj.date)")
+			+ "GROUP BY obj.store, YEAR(obj.date)" 
+			+ "ORDER BY obj.store")
 	List<SalesByStoreAndYearDTO> salesByStoreAndYear();
 	
 	Page<SaleDTO> findByStoreNameEquals(String name, Pageable pageable);
