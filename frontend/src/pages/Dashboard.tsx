@@ -22,8 +22,8 @@ const Dashboard = () => {
           <h2>Tabela customizada organizada por ordem de data</h2>
           <br />
         </div>
-        <br />
       </div>
+      <br />
       <Footer />
     </>
   );

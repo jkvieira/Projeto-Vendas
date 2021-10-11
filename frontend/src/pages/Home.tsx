@@ -13,8 +13,8 @@ const Home = () => {
                     <img src={ImgEfect} alt="Vendas" height="250" />
                     <br />
                 </div>
-                <br />
             </div>
+            <br />
             <Footer />
         </>
     );
