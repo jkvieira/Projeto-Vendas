@@ -13,16 +13,15 @@ const Dashboard = () => {
       <div className="main-container">
         <div className="container">
           <h1>Dashboard de Vendas</h1>
-          <br/>
+          <br />
           <BarChart />
-          <br/>
+          <br />
           <DonutChart />
-          <br/>
-           <DataTable />
-           <h2>Tabela customizada organizada por ordem de data</h2>
-           <br/>
+          <br />
+          <DataTable />
+          <h2>Tabela customizada organizada por ordem de data</h2>
+          <br />
         </div>
-  
       </div>
       <Footer />
     </>

@@ -3,15 +3,16 @@ import './styles.css';
 
 
 const Pagination = ({ page, onPageChange }: PageProps) => {
+
     return (
         <div>
             <nav >
                 <ul className="pagination">
                     <li >
-                        <button disabled={page.first}  className={!page.first? 'active': ''}  onClick={() => onPageChange(0)}>Primeira</button>
+                        <button disabled={page.first} className={!page.first ? 'active' : ''} onClick={() => onPageChange(0)}>Primeira</button>
                     </li>
                     <li >
-                        <button disabled={page.first}  className={!page.first? 'active': ''} onClick={() => onPageChange(page.number - 1)}>&laquo;</button>
+                        <button disabled={page.first} className={!page.first ? 'active' : ''} onClick={() => onPageChange(page.number - 1)}>&laquo;</button>
                     </li>
 
                     <li>
@@ -19,11 +20,11 @@ const Pagination = ({ page, onPageChange }: PageProps) => {
                     </li>
 
                     <li >
-                        <button disabled={page.last}  className={!page.last? 'active': ''} onClick={() => onPageChange(page.number + 1)}>&raquo;</button>
+                        <button disabled={page.last} className={!page.last ? 'active' : ''} onClick={() => onPageChange(page.number + 1)}>&raquo;</button>
                     </li>
 
                     <li>
-                        <button disabled={page.last}  className={!page.last? 'active': ''} onClick={() => onPageChange(page.totalPages - 1)}>Última</button>
+                        <button disabled={page.last} className={!page.last ? 'active' : ''} onClick={() => onPageChange(page.totalPages - 1)}>Última</button>
                     </li>
                 </ul>
             </nav>

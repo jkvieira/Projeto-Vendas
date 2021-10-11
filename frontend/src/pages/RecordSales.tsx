@@ -8,11 +8,11 @@ const RecordSales = () => {
             <NavBar />
             <div className="main-container">
                 <div className="container" >
-                <h1>Cadastro de Vendas</h1>
-                    <br/>
+                    <h1>Cadastro de Vendas</h1>
+                    <br />
                     <Form />
                     <h2>Os dados serão enviados ao clicar no botão</h2>
-                    <br/>
+                    <br />
                 </div>
             </div>
             <Footer />

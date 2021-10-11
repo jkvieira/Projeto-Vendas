@@ -1,4 +1,4 @@
-export type SalePage ={
+export type SalePage = {
     content?: Sale[];
     last: boolean;
     totalPages: number;

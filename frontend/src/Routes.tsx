@@ -1,6 +1,6 @@
 import Home from "pages/Home";
 import RecordSales from "pages/RecordSales";
-import  Dashboard  from "pages/Dashboard";
+import Dashboard from "pages/Dashboard";
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 

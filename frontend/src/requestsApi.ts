@@ -54,19 +54,22 @@ export const getSalesByStore = async (setChartData: Function) => {
        setChartData({ series: mySeries, labels: myLabels});
     })
    .catch(() => {
-       toast.error("Dados do gráfico não carregados. Erro no servidor!");
+       toast.error("Gráfico Total de vendas não carregado. Erro no servidor!");
     });
 }
 
-export const getSalesByStoreYear = async ( setResponseData: Function, initXaxis: Function) =>{
-
+export const getSalesByStoreYear = async (setResponseData: Function, yearMinFucntion: Function, yearMaxFucntion: Function, setYerMinSubPlot: Function, setYerMaxSubPlot: Function, setXaxis: Function, createXaxis: Function ) =>{
   axios.get(`${BASE_URL}/sales/by-store-year`).then((response) => {
       const data = response.data as SaleByStoreYear[][];
       setResponseData(data);
-      initXaxis(data);
+      const yearMin = yearMinFucntion(data);
+      const yearMax = yearMaxFucntion(data);
+      setYerMinSubPlot(yearMin);
+      setYerMaxSubPlot(yearMax);
+      setXaxis(createXaxis(yearMin, yearMax));
     })
     .catch(() => {
-      toast.error("Dados do gráfico não carregados. Erro no servidor!");
+      toast.error("Gráfico Total de vendas por ano não carregado. Erro no servidor!");
    });
 }
 

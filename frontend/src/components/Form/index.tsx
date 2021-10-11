@@ -1,12 +1,13 @@
 import './styles.css';
 import { useState, useEffect } from 'react';
-import { Store, Sale, PaymentMethod} from 'Types/dataTypes';
+import { Store, Sale, PaymentMethod } from 'Types/dataTypes';
 import { dateMax } from "util/dateApi";
-import { SelectStores, SelectPaymentMethods} from 'Types/componentsTypes';
+import { SelectStores, SelectPaymentMethods } from 'Types/componentsTypes';
 import { getStores, getPaymentMethods, saveSale } from 'requestsApi';
 
 
 const Form = () => {
+    
     const [listStores, setListStores] = useState<SelectStores>({ allStores: [] });
     const [listPaymentMethods, setPaymentMethods] = useState<SelectPaymentMethods>({ allPaymentMethods: [] });
     const [store, setStore] = useState<Store>({ id: 0, name: "" });
@@ -53,17 +54,18 @@ const Form = () => {
             setPaymentMethod({ id: Number(e.target.value), description: listPaymentMethods.allPaymentMethods[Number(e.target.value) - 1].description });
         }
     }
-    
+
     useEffect(() => {
         setResponseSale({ date: date, volume: volume, total: total, store: store, paymentMethod: paymentMethod });
     }, [date, volume, total, store, paymentMethod]);
+
 
     const mySubmitHandler = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         saveSale(responseSale);
     }
 
-    
+
     return (
         <div>
             <form className="contextForm" onSubmit={mySubmitHandler}>
@@ -86,13 +88,14 @@ const Form = () => {
                     <input required type="date" name="dateSale" onChange={myChangeHandler} max={dateMax()} />
 
                     <label>Selecione o método de pagamento das vendas</label>
-                    <select required name="selectPaymentMethod"  onChange={myChangeHandler}>
+                    <select required name="selectPaymentMethod" onChange={myChangeHandler}>
                         <option hidden></option>
                         {listPaymentMethods.allPaymentMethods.map(item => (
                             <option key={item.id} value={item.id.toString()}>{item.description}</option>
                         ))}
                     </select>
                     <button className="buttonForm" type="submit">Enviar</button>
+                    <br/>
                     <button className="buttonForm" type="reset">Limpar</button>
                 </div>
             </form>

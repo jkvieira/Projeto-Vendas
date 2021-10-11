@@ -5,8 +5,8 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (
     <>
-    <Routes />
-    <ToastContainer  position={"top-center"} autoClose={8000} closeOnClick={true} />
+      <Routes />
+      <ToastContainer position={"top-center"} autoClose={8000} closeOnClick={true} />
     </>
   );
 }
