@@ -14,6 +14,7 @@ const RecordSales = () => {
                     <h2>Os dados serão enviados ao clicar no botão</h2>
                     <br />
                 </div>
+                <br />
             </div>
             <Footer />
         </>
